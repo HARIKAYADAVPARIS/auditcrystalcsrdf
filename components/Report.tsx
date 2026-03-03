@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { AuditResult, ReadinessStatus, DisclosureStatus } from '../types';
-import { CheckCircle2, XCircle, AlertTriangle, FileText, Sparkles, ShieldCheck, Clock, Download, Briefcase, LayoutDashboard, Building2, Globe, Scale, Linkedin, Copy, Share2, Presentation, ChevronRight, Activity, PenLine, Trophy, SearchCheck, Layers, Gem, TrendingUp, Coins, ChevronDown, FileJson, FileType, Printer, FileDown, Target, Info, FileSpreadsheet } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts';
+import { CheckCircle2, XCircle, AlertTriangle, FileText, Sparkles, ShieldCheck, Clock, Download, Briefcase, LayoutDashboard, Building2, Globe, Scale, Linkedin, Copy, Share2, Presentation, ChevronRight, Activity, PenLine, Trophy, SearchCheck, Layers, Gem, TrendingUp, Coins, ChevronDown, FileJson, FileType, Printer, FileDown, Target, Info, FileSpreadsheet, Plus, RefreshCcw } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import TopicHeatmap from './TopicHeatmap';
 import AuditChat from './AuditChat';
 import MaterialityMatrix from './MaterialityMatrix';
@@ -15,6 +16,7 @@ import PolicyDraftModal from './PolicyDraftModal';
 import PeerIntelligence from './PeerIntelligence';
 import BoardVideo from './BoardVideo';
 import GlobalReadinessReview from './GlobalReadinessReview';
+import PitchDeck from './PitchDeck';
 import FrameworkIntelligence from './FrameworkIntelligence';
 import RevenueIntelligence from './RevenueIntelligence';
 import ThoughtLeadership from './ThoughtLeadership';
@@ -28,8 +30,8 @@ interface ReportProps {
 
 const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
   const [viewMode, setViewMode] = useState<'standard' | 'cfo' | 'group' | 'boardroom' | 'assurance' | 'revenue'>('assurance');
-  const [showEvidence, setShowEvidence] = useState(false);
-  const [showMethodology, setShowMethodology] = useState(false);
+  const [evidenceDisclosureCode, setEvidenceDisclosureCode] = useState<string | null>(null);
+  const [showPitchDeck, setShowPitchDeck] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -159,9 +161,18 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
               CSRD Readiness: <span className="text-amber-500">{data.companyName}</span>
             </h1>
           </div>
-          <button onClick={() => setViewMode('assurance')} className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10">Exit Boardroom</button>
+          <div className="flex gap-4">
+            <button 
+              onClick={() => setShowPitchDeck(true)}
+              className="px-6 py-3 bg-gold-500 text-slate-950 font-bold rounded-xl hover:bg-gold-400 transition-all shadow-lg flex items-center gap-2"
+            >
+              <Presentation size={18} /> Strategic Pitch
+            </button>
+            <button onClick={() => setViewMode('assurance')} className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10">Exit Boardroom</button>
+          </div>
         </div>
         <BoardVideo data={data} />
+        {showPitchDeck && <PitchDeck onClose={() => setShowPitchDeck(false)} />}
       </div>
     );
   }
@@ -186,7 +197,7 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
         </div>
       )}
 
-      {showEvidence && <EvidenceViewer data={data} pdfUrl={pdfUrl} onClose={() => setShowEvidence(false)} />}
+      {evidenceDisclosureCode && <EvidenceViewer data={data} pdfUrl={pdfUrl} initialDisclosureCode={evidenceDisclosureCode} onClose={() => setEvidenceDisclosureCode(null)} />}
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 print:hidden">
         <div>
@@ -203,15 +214,17 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
             <button onClick={() => setViewMode('revenue')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'revenue' ? 'bg-slate-900 text-emerald-400' : 'text-slate-500 hover:bg-slate-50'}`}><Coins size={14} />Revenue Alpha</button>
             <button onClick={() => setViewMode('standard')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'standard' ? 'bg-slate-900 text-white' : 'text-slate-500 hover:bg-slate-50'}`}><LayoutDashboard size={14} />Board</button>
             <button onClick={() => setViewMode('cfo')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'cfo' ? 'bg-slate-900 text-indigo-400' : 'text-slate-500 hover:bg-slate-50'}`}><Briefcase size={14} />Workbench</button>
+            <button onClick={() => setViewMode('group')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'group' ? 'bg-slate-900 text-orange-400' : 'text-slate-500 hover:bg-slate-50'}`}><Building2 size={14} />Group</button>
+            <button onClick={() => setViewMode('boardroom')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${(viewMode as string) === 'boardroom' ? 'bg-amber-500 text-slate-950' : 'text-slate-500 hover:bg-slate-50'}`}><Presentation size={14} />Veo Brief</button>
           </div>
           
           <div className="flex items-center gap-3">
             <button 
-              onClick={handlePrintPDF}
-              className="px-5 py-2.5 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg flex items-center gap-2 text-[10px] uppercase tracking-widest"
-              title="Download full report as PDF"
+              onClick={onReset}
+              className="px-5 py-2.5 bg-slate-100 text-slate-600 font-black rounded-xl hover:bg-slate-200 transition-all shadow-sm flex items-center gap-2 text-[10px] uppercase tracking-widest"
+              title="Start a new audit"
             >
-              <FileDown size={14} className="text-amber-400" /> Download PDF
+              <RefreshCcw size={14} /> New Audit
             </button>
             
             <div className="relative">
@@ -265,9 +278,15 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
 
       {viewMode === 'assurance' ? (
         <div className="space-y-6">
-          <FrameworkIntelligence data={data} onShowEvidence={() => setShowEvidence(true)} />
+          <FrameworkIntelligence data={data} onShowEvidence={(code) => setEvidenceDisclosureCode(code || data.mandatoryDisclosures[0]?.code)} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+             <MaterialityMatrix topics={data.doubleMaterialityMatrix} />
+             <div className="space-y-6">
+                <ThoughtLeadership />
+                <ProcessChecklist data={data} />
+             </div>
+          </div>
           <RegulatoryBriefing />
-          <ThoughtLeadership />
         </div>
       ) : viewMode === 'revenue' ? (
         <RevenueIntelligence data={data} />
@@ -314,11 +333,6 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
                         </div>
                         <div className="flex justify-between items-center">
                            <span className="text-[10px] font-black text-slate-900">{fw.alignmentScore}%</span>
-                           {fw.missingCriticals?.length > 0 ? (
-                             <span className="text-[8px] font-black text-red-400 uppercase">{fw.missingCriticals.length} Gaps</span>
-                           ) : (
-                             <span className="text-[8px] font-black text-emerald-500 uppercase">Synced</span>
-                           )}
                         </div>
                       </div>
                     ))}
@@ -330,8 +344,25 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <PeerIntelligence companyName={data.companyName} userScore={data.scoreValue} />
             <div className="flex flex-col gap-6">
-               <ThoughtLeadership />
-               <ProcessChecklist data={data} />
+               <SolutionMarketplace data={data} />
+               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Critical Policy Drafting</h4>
+                  <div className="space-y-3">
+                     {data.mandatoryDisclosures.filter(d => d.status === 'Missing').slice(0, 3).map((gap, i) => (
+                       <button 
+                         key={i} 
+                         onClick={() => handleDraftPolicy(gap)}
+                         className="w-full flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-amber-50 hover:border-amber-200 border border-slate-100 transition-all text-left"
+                       >
+                         <div>
+                            <div className="text-xs font-black text-slate-900">{gap.code} Policy Gap</div>
+                            <div className="text-[10px] text-slate-500 font-medium truncate w-48">{gap.description}</div>
+                         </div>
+                         <PenLine size={16} className="text-amber-500" />
+                       </button>
+                     ))}
+                  </div>
+               </div>
             </div>
           </div>
         </div>

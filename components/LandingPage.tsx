@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { Gem, ArrowRight, ShieldCheck, Zap, Globe, BarChart3, CheckCircle2, Lock, FileText, Linkedin, Twitter, Instagram, Mail, Fingerprint, Code2, Network, SearchCheck, Building2, Server, Quote, Sparkles, Gavel, AlertCircle, TrendingUp, Layers, Cpu, Microscope, DatabaseZap, Scale, Shield, Compass, Target } from 'lucide-react';
+import { Gem, ArrowRight, ShieldCheck, Zap, Globe, BarChart3, CheckCircle2, Lock, FileText, Linkedin, Twitter, Instagram, Mail, Fingerprint, Code2, Network, SearchCheck, Building2, Server, Quote, Sparkles, Gavel, AlertCircle, TrendingUp, Layers, Cpu, Microscope, DatabaseZap, Scale, Shield, Compass, Target, Presentation } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: (useSample?: boolean) => void;
+  onShowPitch: () => void;
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ onStart, onShowPitch }) => {
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-gold-500/30 overflow-x-hidden">
       
@@ -26,6 +27,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             <span className="font-serif italic text-2xl tracking-tight text-white">Audit Crystal</span>
           </div>
           <div className="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+            <button onClick={onShowPitch} className="hover:text-gold-400 transition-colors">The Pitch</button>
             <a href="#protocol" className="hover:text-gold-400 transition-colors">The Protocol</a>
             <a href="#advantage" className="hover:text-gold-400 transition-colors">The Advantage</a>
             <a href="#pricing" className="hover:text-gold-400 transition-colors">Investment</a>
@@ -63,6 +65,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
               className="h-16 px-10 bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-black uppercase tracking-widest rounded transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(198,141,65,0.3)] hover:-translate-y-1"
             >
               Launch Pre-Audit Vault <ArrowRight size={16} strokeWidth={3} />
+            </button>
+            <button 
+              onClick={onShowPitch}
+              className="h-16 px-10 bg-transparent border border-white/10 hover:border-gold-500/50 text-white text-xs font-black uppercase tracking-widest rounded transition-all flex items-center justify-center gap-3 group"
+            >
+              <Presentation size={16} className="text-slate-500 group-hover:text-gold-400" /> View Pitch Deck
             </button>
             <button 
               onClick={() => onStart(true)}

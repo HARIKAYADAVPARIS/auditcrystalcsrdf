@@ -25,6 +25,19 @@ const PolicyDraftModal: React.FC<PolicyDraftModalProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDownloadDocx = () => {
+    const filename = `AuditCrystal_Policy_ESRS_${gapCode}.txt`;
+    const blob = new Blob([policyContent], { type: 'text/plain;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="fixed inset-0 z-[100] bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4">
       <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in duration-300 border border-slate-200">
@@ -106,7 +119,10 @@ const PolicyDraftModal: React.FC<PolicyDraftModalProps> = ({
         {/* Footer Actions */}
         <div className="p-6 bg-white border-t border-slate-200 flex justify-between items-center shrink-0">
           <div className="flex items-center gap-3">
-             <InfoBanner />
+             <div className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-lg text-indigo-700">
+                <FileText size={16} />
+                <span className="text-[10px] font-bold uppercase tracking-wider">Draft generated using Gemini 3 Pro Reasoning</span>
+              </div>
           </div>
           <div className="flex gap-4">
             <button 
@@ -119,9 +135,10 @@ const PolicyDraftModal: React.FC<PolicyDraftModalProps> = ({
               }`}
             >
               {copied ? <Check size={18} /> : <Copy size={18} />}
-              {copied ? 'Copied to Clipboard' : 'Copy Text'}
+              {copied ? 'Copied' : 'Copy Text'}
             </button>
             <button 
+              onClick={handleDownloadDocx}
               disabled={isLoading}
               className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-amber-400 rounded-xl font-bold text-sm hover:bg-slate-800 transition-all shadow-lg disabled:opacity-50"
             >
@@ -134,12 +151,5 @@ const PolicyDraftModal: React.FC<PolicyDraftModalProps> = ({
     </div>
   );
 };
-
-const InfoBanner = () => (
-  <div className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-lg text-indigo-700">
-    <FileText size={16} />
-    <span className="text-[10px] font-bold uppercase tracking-wider">Draft generated using Gemini 3 Pro Reasoning</span>
-  </div>
-);
 
 export default PolicyDraftModal;

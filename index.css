@@ -64,7 +64,35 @@
   }
 
   /* Ensure text is black and readable */
-  p, span, h1, h2, h3, h4 {
+  p:not(.no-print-override *), 
+  span:not(.no-print-override *), 
+  h1:not(.no-print-override *), 
+  h2:not(.no-print-override *), 
+  h3:not(.no-print-override *), 
+  h4:not(.no-print-override *) {
     color: #000 !important;
+  }
+
+  .no-print-override {
+    background-color: #020617 !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    position: relative !important;
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+    z-index: auto !important;
+    inset: auto !important;
+  }
+
+  .no-print-override * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure the interactive part is hidden during print */
+  .no-print-override .print-hidden {
+    display: none !important;
   }
 }

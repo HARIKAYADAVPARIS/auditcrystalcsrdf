@@ -6,10 +6,20 @@ interface EvidenceViewerProps {
   data: AuditResult;
   pdfUrl?: string | null;
   onClose: () => void;
+  initialDisclosureCode?: string | null;
 }
 
-const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ data, pdfUrl, onClose }) => {
+const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ data, pdfUrl, onClose, initialDisclosureCode }) => {
   const [selectedDisclosureId, setSelectedDisclosureId] = useState<number>(0);
+
+  React.useEffect(() => {
+    if (initialDisclosureCode) {
+      const index = data.mandatoryDisclosures.findIndex(d => d.code === initialDisclosureCode);
+      if (index !== -1) {
+        setSelectedDisclosureId(index);
+      }
+    }
+  }, [initialDisclosureCode, data.mandatoryDisclosures]);
 
   // Filter to items that have evidence or are missing
   const auditItems = data.mandatoryDisclosures;

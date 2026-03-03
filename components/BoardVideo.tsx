@@ -14,6 +14,16 @@ const BoardVideo: React.FC<BoardVideoProps> = ({ data }) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleGenerate = async () => {
+    // Fix: Follow API Key Selection guidelines for Veo models.
+    const aistudio = (window as any).aistudio;
+    if (aistudio) {
+      const hasKey = await aistudio.hasSelectedApiKey();
+      if (!hasKey) {
+        await aistudio.openSelectKey();
+        // Proceeding assuming selection was successful per race condition advice in guidelines.
+      }
+    }
+
     setIsGenerating(true);
     setError(null);
     try {
@@ -21,6 +31,10 @@ const BoardVideo: React.FC<BoardVideoProps> = ({ data }) => {
       setVideoUrl(url);
     } catch (err: any) {
       console.error(err);
+      // Fix: Reset key selection if entity not found error occurs.
+      if (err.message?.includes("Requested entity was not found.") && aistudio) {
+        await aistudio.openSelectKey();
+      }
       setError(err.message || "Failed to generate video. Paid API key with Veo permissions required.");
     } finally {
       setIsGenerating(false);

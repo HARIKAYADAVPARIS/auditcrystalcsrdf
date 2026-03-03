@@ -5,7 +5,7 @@ import { ShieldCheck, SearchCheck, CheckCircle2, XCircle, Info, ChevronRight, Sc
 
 interface FrameworkIntelligenceProps {
   data: AuditResult;
-  onShowEvidence: () => void;
+  onShowEvidence: (code?: string) => void;
 }
 
 const FrameworkIntelligence: React.FC<FrameworkIntelligenceProps> = ({ data, onShowEvidence }) => {
@@ -57,7 +57,7 @@ const FrameworkIntelligence: React.FC<FrameworkIntelligenceProps> = ({ data, onS
               </p>
               <div className="flex gap-4 pt-2">
                  <button 
-                   onClick={onShowEvidence}
+                   onClick={() => onShowEvidence()}
                    className="px-6 py-3 bg-white text-slate-950 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-400 transition-all shadow-xl"
                  >
                    Open Evidence Explorer
@@ -173,7 +173,7 @@ const FrameworkIntelligence: React.FC<FrameworkIntelligenceProps> = ({ data, onS
                       </td>
                       <td className="py-5 text-center">
                          <button 
-                           onClick={onShowEvidence}
+                           onClick={() => onShowEvidence(d.code)}
                            className="text-[10px] font-black text-indigo-600 hover:underline uppercase tracking-widest"
                          >
                            Verify
