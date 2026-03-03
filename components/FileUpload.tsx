@@ -150,7 +150,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onAnalyze, isLoading }) => {
             <span className="flex items-center justify-center gap-4">
               <Cpu size={16} className="animate-spin" /> EXECUTING PRE-AUDIT PROTOCOL...
             </span>
-          ) : "INITIATE DETERMINISTIC AUDIT"}
+          ) : "UPLOAD SUSTAINABILITY REPORT"}
         </button>
       </div>
     </div>

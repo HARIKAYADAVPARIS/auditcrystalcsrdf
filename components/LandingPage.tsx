@@ -35,7 +35,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onShowPitch }) => {
               onClick={() => onStart()}
               className="px-6 py-2.5 bg-white text-slate-950 rounded font-black hover:bg-gold-400 transition-all shadow-[0_4px_20px_rgba(255,255,255,0.1)] active:scale-95"
             >
-              Initiate Audit
+              Upload Sustainability Report
             </button>
           </div>
         </div>
@@ -277,7 +277,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onShowPitch }) => {
                 <li className="flex gap-3 text-sm text-slate-950 font-medium"><CheckCircle2 size={16} className="shrink-0" /> CFO Financial Risk Workbench</li>
                 <li className="flex gap-3 text-sm text-slate-950 font-medium"><CheckCircle2 size={16} className="shrink-0" /> Veo Boardroom Video Brief</li>
               </ul>
-              <button onClick={() => onStart()} className="w-full py-4 bg-slate-950 text-gold-500 rounded-sm text-xs font-black uppercase tracking-widest hover:bg-slate-900 transition-colors shadow-2xl">Initiate Institutional Audit</button>
+              <button onClick={() => onStart()} className="w-full py-4 bg-slate-950 text-gold-500 rounded-sm text-xs font-black uppercase tracking-widest hover:bg-slate-900 transition-colors shadow-2xl">Upload Institutional Report</button>
             </div>
 
             <div className="bg-slate-900/50 border border-white/5 p-12 rounded-sm flex flex-col h-full hover:border-gold-500/30 transition-colors">

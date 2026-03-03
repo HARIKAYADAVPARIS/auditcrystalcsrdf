@@ -163,7 +163,7 @@ const App: React.FC = () => {
           </div>
           <div className="flex items-center gap-4">
             <button onClick={handleReset} className="text-[9px] font-black px-4 py-2 bg-white/5 text-slate-400 hover:text-white border border-white/10 rounded-full uppercase tracking-widest transition-all">
-              New Audit
+              New Report
             </button>
             <span className="hidden md:inline-block text-[9px] font-black px-3 py-1 bg-white/5 text-gold-400 border border-white/10 rounded-full uppercase tracking-widest">
               Institutional Mode v4.1 • auditcrystal.com
