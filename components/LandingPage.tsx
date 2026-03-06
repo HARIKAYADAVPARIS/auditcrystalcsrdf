@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Gem, ArrowRight, ShieldCheck, Zap, Globe, BarChart3, CheckCircle2, Lock, FileText, Linkedin, Twitter, Instagram, Mail, Fingerprint, Code2, Network, SearchCheck, Building2, Server, Quote, Sparkles, Gavel, AlertCircle, TrendingUp, Layers, Cpu, Microscope, DatabaseZap, Scale, Shield, Compass, Target, Presentation } from 'lucide-react';
+import { Gem, ArrowRight, ShieldCheck, Zap, Globe, BarChart3, CheckCircle2, Lock, FileText, Linkedin, Twitter, Instagram, Mail, Fingerprint, Code2, Network, SearchCheck, Building2, Server, Quote, Sparkles, Gavel, AlertCircle, TrendingUp, Layers, Cpu, Microscope, DatabaseZap, Scale, Shield, Compass, Target, Presentation, Clock } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: (useSample?: boolean) => void;
@@ -45,8 +45,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onShowPitch }) => {
       <section className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-40 grid lg:grid-cols-2 gap-24 items-center">
         <div className="space-y-12 animate-in fade-in slide-in-from-bottom-12 duration-1000">
           
-          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded border border-gold-500/20 bg-gold-500/5 text-gold-400 text-[10px] font-black uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span> PRE-AUDIT PROTOCOL MMXXVI
+          <div className="flex items-center gap-4">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded border border-gold-500/20 bg-gold-500/5 text-gold-400 text-[10px] font-black uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span> PRE-AUDIT PROTOCOL MMXXVI
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white text-slate-950 text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              <ShieldCheck size={12} className="text-emerald-600" /> 100% Traceable AI
+            </div>
           </div>
 
           <h1 className="text-7xl lg:text-8xl font-serif leading-[0.95] tracking-tighter text-white">
@@ -237,6 +242,101 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onShowPitch }) => {
                       <div className="h-full bg-gradient-to-r from-emerald-500 to-amber-500 w-[22%]"></div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Auditor Portal Mockup */}
+      <section className="py-24 bg-slate-950 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="absolute -inset-4 bg-gold-500/5 blur-2xl rounded-full"></div>
+              <div className="relative bg-slate-900 border border-white/10 rounded-lg overflow-hidden shadow-2xl">
+                <div className="bg-slate-800 px-6 py-4 border-b border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
+                      <div className="w-2 h-2 rounded-full bg-amber-500/50"></div>
+                      <div className="w-2 h-2 rounded-full bg-emerald-500/50"></div>
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">External Auditor View // Evidence-Lock™</span>
+                  </div>
+                  <div className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded text-[8px] font-black text-emerald-500 uppercase">Live Session</div>
+                </div>
+                <div className="p-8 space-y-6">
+                  {[
+                    { label: "ESRS E1-1: Transition Plan", status: "verified", id: "EP-001" },
+                    { label: "ESRS E1-6: Gross Scope 1 GHG", status: "verified", id: "EP-042" },
+                    { label: "ESRS S1-4: Collective Bargaining", status: "gap", id: "SP-012" },
+                    { label: "ESRS G1-2: Management of Relationships", status: "verified", id: "GP-009" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded hover:border-white/10 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-2 h-2 rounded-full ${item.status === 'verified' ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]'}`}></div>
+                        <div>
+                          <div className="text-[10px] font-black text-white uppercase tracking-wider">{item.label}</div>
+                          <div className="text-[8px] font-mono text-slate-500 uppercase">{item.id} // SECURE_HASH_V4</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-[8px] font-black text-slate-400 uppercase tracking-widest transition-all">View Evidence</button>
+                        <Lock size={12} className="text-gold-500/50" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="bg-slate-950/50 p-6 border-t border-white/5 text-center">
+                  <p className="text-[9px] font-mono text-slate-600 uppercase tracking-[0.2em]">Deterministic Verification Engine // 0 Hallucinations Detected</p>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2 space-y-10">
+              <div className="text-[10px] font-black text-gold-500 uppercase tracking-[0.4em]">The Auditor Portal</div>
+              <h2 className="text-6xl font-serif text-white leading-none tracking-tight">Frictionless <span className="italic text-gold-400">Assurance.</span></h2>
+              <p className="text-slate-400 text-lg font-light leading-relaxed">
+                Invite your external auditors to a read-only portal where every data point is locked to its source evidence. No more manual sampling. No more back-and-forth emails.
+              </p>
+              <div className="grid grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <div className="text-2xl font-serif text-white italic">Evidence-Lock™</div>
+                  <p className="text-xs text-slate-500">Every claim is cryptographically linked to source PDFs.</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-2xl font-serif text-white italic">Red/Green Logic</div>
+                  <p className="text-xs text-slate-500">Instant visual status for 1,200+ ESRS data points.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Shadow Audit CTA */}
+      <section className="py-32 relative z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-gold-500/20 rounded-2xl p-16 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gold-500/5 blur-[120px] pointer-events-none"></div>
+            <div className="relative z-10 max-w-3xl space-y-8">
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded bg-gold-500 text-slate-950 text-[10px] font-black uppercase tracking-widest">
+                Limited Availability
+              </div>
+              <h2 className="text-6xl font-serif text-white leading-none tracking-tight">The <span className="italic text-gold-400">Shadow Audit</span> Service.</h2>
+              <p className="text-xl text-slate-400 font-light leading-relaxed">
+                Instead of a generic demo, we'll run your last year's sustainability report through our engine. In seconds, we'll deliver a comprehensive "Gap Analysis" showing exactly what your auditors missed.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 pt-4">
+                <button 
+                  onClick={() => onStart()}
+                  className="h-16 px-10 bg-white text-slate-950 text-xs font-black uppercase tracking-widest rounded transition-all flex items-center justify-center gap-3 hover:bg-gold-400 shadow-2xl"
+                >
+                  Run Instant Shadow Audit <Zap size={16} fill="currentColor" />
+                </button>
+                <div className="flex items-center gap-4 px-6 text-slate-500 text-[10px] font-black uppercase tracking-widest border-l border-white/10">
+                  <Clock size={16} /> Sub-Second Turnaround
                 </div>
               </div>
             </div>
