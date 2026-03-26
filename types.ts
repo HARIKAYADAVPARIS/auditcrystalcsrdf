@@ -117,6 +117,22 @@ export interface ChatMessage {
   links?: { uri: string; title: string; }[];
 }
 
+export interface Webhook {
+  id: string;
+  url: string;
+  events: string[];
+  status: 'active' | 'inactive';
+  lastFired?: string;
+}
+
+export interface ApiKey {
+  id: string;
+  key: string;
+  name: string;
+  created: string;
+  lastUsed?: string;
+}
+
 export interface AnalysisState {
   isLoading: boolean;
   isStreaming: boolean;

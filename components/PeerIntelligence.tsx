@@ -18,9 +18,11 @@ interface PeerIntelligenceProps {
 const PeerIntelligence: React.FC<PeerIntelligenceProps> = ({ companyName, userScore }) => {
   const [peers, setPeers] = useState<PeerIntel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const loadIntel = async () => {
     setIsLoading(true);
+    setExpandedIndex(null);
     try {
       const data = await fetchPeerIntelligence(companyName);
       setPeers(Array.isArray(data) ? data : []);
@@ -102,43 +104,73 @@ const PeerIntelligence: React.FC<PeerIntelligenceProps> = ({ companyName, userSc
             <div className="space-y-3">
               <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Competitor Landscape</h4>
               {peers.map((peer, idx) => (
-                <div key={idx} className="group p-5 rounded-2xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs ${
-                      peer.readinessScore > userScore ? 'bg-indigo-100 text-indigo-700' : 'bg-emerald-100 text-emerald-700'
-                    }`}>
-                      {idx + 1}
-                    </div>
-                    <div>
-                      <div className="font-bold text-slate-900 text-sm flex items-center gap-2">
-                        {peer.name}
-                        {peer.readinessScore < userScore && (
-                          <span className="text-[8px] bg-emerald-500 text-white px-1.5 py-0.5 rounded-full font-black uppercase">Beating</span>
-                        )}
+                <div 
+                  key={idx} 
+                  onClick={() => setExpandedIndex(expandedIndex === idx ? null : idx)}
+                  className={`group p-5 rounded-2xl border transition-all cursor-pointer ${
+                    expandedIndex === idx 
+                      ? 'border-indigo-200 bg-white shadow-xl ring-1 ring-indigo-50' 
+                      : 'border-slate-100 bg-slate-50 hover:bg-white hover:shadow-xl hover:-translate-y-0.5'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs ${
+                        peer.readinessScore > userScore ? 'bg-indigo-100 text-indigo-700' : 'bg-emerald-100 text-emerald-700'
+                      }`}>
+                        {idx + 1}
                       </div>
-                      <div className="text-[10px] text-slate-500 flex items-center gap-1.5 mt-1">
-                        <AlertCircle size={10} className="text-amber-500" />
-                        <span className="font-medium">Gap: {peer.keyGap}</span>
+                      <div>
+                        <div className="font-bold text-slate-900 text-sm flex items-center gap-2">
+                          {peer.name}
+                          {peer.readinessScore < userScore && (
+                            <span className="text-[8px] bg-emerald-500 text-white px-1.5 py-0.5 rounded-full font-black uppercase">Beating</span>
+                          )}
+                        </div>
+                        <div className="text-[10px] text-slate-500 flex items-center gap-1.5 mt-1">
+                          <span className="font-medium opacity-60">Readiness IQ: {peer.readinessScore}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-5">
+                      <div className="text-right">
+                        <div className={`text-xl font-black ${peer.readinessScore > userScore ? 'text-indigo-600' : 'text-emerald-600'}`}>
+                          {peer.readinessScore}
+                        </div>
+                      </div>
+                      <div className={`transition-transform duration-300 ${expandedIndex === idx ? 'rotate-180' : ''}`}>
+                        <RefreshCw size={14} className="text-slate-300" />
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-5">
-                    <div className="text-right">
-                      <div className="text-xl font-black text-slate-900">{peer.readinessScore}</div>
-                      <div className="text-[8px] font-bold text-slate-400 uppercase">Score</div>
+
+                  {expandedIndex === idx && (
+                    <div className="mt-6 pt-6 border-t border-slate-100 animate-in slide-in-from-top-2 duration-300 space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-[10px] font-black text-amber-600 uppercase tracking-widest">
+                          <AlertCircle size={12} /> Critical Assurance Gap
+                        </div>
+                        <p className="text-xs text-slate-600 leading-relaxed font-medium bg-amber-50/50 p-3 rounded-xl border border-amber-100/50">
+                          {peer.keyGap}
+                        </p>
+                      </div>
+                      
+                      {peer.reportUrl && (
+                        <div className="flex items-center justify-between pt-2">
+                          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Source Disclosure</div>
+                          <a 
+                            href={peer.reportUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-100 transition-all border border-indigo-100"
+                          >
+                            <ExternalLink size={12} /> View Report
+                          </a>
+                        </div>
+                      )}
                     </div>
-                    {peer.reportUrl && (
-                      <a 
-                        href={peer.reportUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="p-3 bg-white border border-slate-200 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 hover:border-indigo-200 rounded-xl transition-all shadow-sm"
-                        title="View Source Report"
-                      >
-                        <LinkIcon size={16} />
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
