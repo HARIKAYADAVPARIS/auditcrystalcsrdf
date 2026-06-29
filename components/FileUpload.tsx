@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import { Upload, FileText, Link as LinkIcon, AlertTriangle, ShieldCheck, Lock, Sparkles, Shield, Cpu, LockKeyhole } from 'lucide-react';
 
 interface FileUploadProps {
-  onAnalyze: (file: File | null, url: string | null) => void;
+  onAnalyze: (file: File | null, url: string | null, useSample?: boolean) => void;
   isLoading: boolean;
 }
 
@@ -104,7 +104,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onAnalyze, isLoading }) => {
                     </div>
                   ) : (
                     <>
-                      <p className="text-3xl font-serif text-white tracking-tighter">Enter Audit Vault</p>
+                      <p className="text-3xl font-serif text-white tracking-tighter">Upload Sustainability Report</p>
                       <p className="text-slate-600 mt-4 text-[9px] font-black uppercase tracking-[0.5em]">Drag Document to Protocol Entry</p>
                     </>
                   )}
@@ -152,6 +152,18 @@ const FileUpload: React.FC<FileUploadProps> = ({ onAnalyze, isLoading }) => {
             </span>
           ) : "UPLOAD SUSTAINABILITY REPORT"}
         </button>
+
+        <div className="mt-8 text-center">
+          <button
+            type="button"
+            onClick={() => onAnalyze(null, null, true)}
+            disabled={isLoading}
+            className="inline-flex items-center gap-2 text-slate-500 hover:text-gold-400 text-[10px] font-black uppercase tracking-widest transition-colors cursor-pointer group disabled:opacity-40"
+          >
+            <Sparkles size={12} className="text-gold-500 group-hover:animate-pulse" />
+            Or, explore with a <span className="underline decoration-gold-500/30 group-hover:decoration-gold-500">pre-configured Sample Report</span>
+          </button>
+        </div>
       </div>
     </div>
   );

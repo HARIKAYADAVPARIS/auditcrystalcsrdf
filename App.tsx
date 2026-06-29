@@ -5,7 +5,6 @@ import FileUpload from './components/FileUpload';
 import Report from './components/Report';
 import LandingPage from './components/LandingPage';
 import AnalysisTerminal from './components/AnalysisTerminal';
-import PitchDeck from './components/PitchDeck';
 import { analyzeDocument } from './services/gemini';
 import { AnalysisState, ReadinessStatus, AuditResult } from './types';
 
@@ -76,7 +75,6 @@ const SAMPLE_RESULT: AuditResult = {
 
 const App: React.FC = () => {
   const [view, setView] = useState<'landing' | 'app'>('landing');
-  const [showPitch, setShowPitch] = useState(false);
   
   const [analysisState, setAnalysisState] = useState<AnalysisState>({
     isLoading: false,
@@ -147,8 +145,7 @@ const App: React.FC = () => {
   if (view === 'landing' && !analysisState.isLoading && !analysisState.result) {
     return (
       <>
-        <LandingPage onStart={startApp} onShowPitch={() => setShowPitch(true)} />
-        {showPitch && <PitchDeck onClose={() => setShowPitch(false)} />}
+        <LandingPage onStart={startApp} />
       </>
     );
   }
@@ -187,7 +184,7 @@ const App: React.FC = () => {
         {analysisState.isLoading && !analysisState.isStreaming && (
            <div className="flex flex-col items-center justify-center py-24 space-y-6">
               <Gem size={64} className="text-gold-500 animate-pulse" />
-              <p className="text-slate-500 font-bold animate-pulse uppercase tracking-widest text-sm">Initializing Vault Protocol...</p>
+              <p className="text-slate-500 font-bold animate-pulse uppercase tracking-widest text-sm">Initializing Pre-Audit Engine...</p>
            </div>
         )}
 
@@ -196,9 +193,9 @@ const App: React.FC = () => {
         ) : (
           !analysisState.isLoading && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <div className="text-center mb-12 space-y-4">
-                <h1 className="text-5xl font-serif text-slate-900 tracking-tight leading-none italic">Institutional <br/><span className="not-italic font-black text-6xl">Pre-Audit Vault</span></h1>
-                <p className="text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+               <div className="text-center mb-12 space-y-4">
+                 <h1 className="text-5xl font-serif text-slate-900 tracking-tight leading-none italic">Institutional <br/><span className="not-italic font-black text-6xl">Pre-Audit Engine</span></h1>
+                 <p className="text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
                   Analyze your report against global ESRS standards on <span className="text-indigo-600 font-black">auditcrystal.com</span>.
                 </p>
               </div>

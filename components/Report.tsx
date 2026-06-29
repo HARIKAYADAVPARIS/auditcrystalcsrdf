@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { AuditResult, ReadinessStatus, DisclosureStatus } from '../types';
-import { CheckCircle2, XCircle, AlertTriangle, FileText, Sparkles, ShieldCheck, Clock, Download, Briefcase, LayoutDashboard, Building2, Globe, Scale, Linkedin, Copy, Share2, Presentation, ChevronRight, Activity, PenLine, Trophy, SearchCheck, Layers, Gem, TrendingUp, Coins, ChevronDown, FileJson, FileType, Printer, FileDown, Target, Info, FileSpreadsheet, Plus, RefreshCcw, Network } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertTriangle, FileText, Sparkles, ShieldCheck, Clock, Download, Briefcase, LayoutDashboard, Building2, Globe, Scale, Linkedin, Copy, Share2, Presentation, ChevronRight, Activity, PenLine, Trophy, SearchCheck, Layers, Gem, TrendingUp, Coins, ChevronDown, FileJson, FileType, Printer, FileDown, Target, Info, FileSpreadsheet, Plus, RefreshCcw, Network, Database } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import TopicHeatmap from './TopicHeatmap';
 import AuditChat from './AuditChat';
@@ -16,11 +16,13 @@ import PolicyDraftModal from './PolicyDraftModal';
 import PeerIntelligence from './PeerIntelligence';
 import BoardVideo from './BoardVideo';
 import GlobalReadinessReview from './GlobalReadinessReview';
-import PitchDeck from './PitchDeck';
+import MaterialityLedger from './MaterialityLedger';
 import FrameworkIntelligence from './FrameworkIntelligence';
 import RevenueIntelligence from './RevenueIntelligence';
 import ThoughtLeadership from './ThoughtLeadership';
 import IntegrationHub from './IntegrationHub';
+import AssuranceCertifier from './AssuranceCertifier';
+import LegacyPlatformComparison from './LegacyPlatformComparison';
 import { generateESRSPolicy } from '../services/gemini';
 
 interface ReportProps {
@@ -30,9 +32,8 @@ interface ReportProps {
 }
 
 const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
-  const [viewMode, setViewMode] = useState<'standard' | 'cfo' | 'group' | 'boardroom' | 'assurance' | 'revenue' | 'integration'>('assurance');
+  const [viewMode, setViewMode] = useState<'standard' | 'cfo' | 'group' | 'boardroom' | 'assurance' | 'revenue' | 'integration' | 'ledger' | 'certify' | 'edge'>('assurance');
   const [evidenceDisclosureCode, setEvidenceDisclosureCode] = useState<string | null>(null);
-  const [showPitchDeck, setShowPitchDeck] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -163,17 +164,10 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
             </h1>
           </div>
           <div className="flex gap-4">
-            <button 
-              onClick={() => setShowPitchDeck(true)}
-              className="px-6 py-3 bg-gold-500 text-slate-950 font-bold rounded-xl hover:bg-gold-400 transition-all shadow-lg flex items-center gap-2"
-            >
-              <Presentation size={18} /> Strategic Pitch
-            </button>
             <button onClick={() => setViewMode('assurance')} className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10">Exit Boardroom</button>
           </div>
         </div>
         <BoardVideo data={data} />
-        {showPitchDeck && <PitchDeck onClose={() => setShowPitchDeck(false)} />}
       </div>
     );
   }
@@ -216,6 +210,9 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
             <button onClick={() => setViewMode('standard')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'standard' ? 'bg-slate-900 text-white' : 'text-slate-500 hover:bg-slate-50'}`}><LayoutDashboard size={14} />Board</button>
             <button onClick={() => setViewMode('cfo')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'cfo' ? 'bg-slate-900 text-indigo-400' : 'text-slate-500 hover:bg-slate-50'}`}><Briefcase size={14} />Workbench</button>
             <button onClick={() => setViewMode('group')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'group' ? 'bg-slate-900 text-orange-400' : 'text-slate-500 hover:bg-slate-50'}`}><Building2 size={14} />Group</button>
+            <button onClick={() => setViewMode('ledger')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'ledger' ? 'bg-slate-900 text-gold-400' : 'text-slate-500 hover:bg-slate-50'}`}><Database size={14} />Ledger</button>
+            <button onClick={() => setViewMode('certify')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'certify' ? 'bg-slate-900 text-amber-500' : 'text-slate-500 hover:bg-slate-50'}`}><ShieldCheck size={14} />Certify</button>
+            <button onClick={() => setViewMode('edge')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'edge' ? 'bg-slate-900 text-amber-400 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}><Sparkles size={14} />SaaS Stack</button>
             <button onClick={() => setViewMode('integration')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${viewMode === 'integration' ? 'bg-slate-900 text-amber-400' : 'text-slate-500 hover:bg-slate-50'}`}><Network size={14} />API</button>
             <button onClick={() => setViewMode('boardroom')} className={`px-4 py-2 text-[10px] font-black uppercase rounded-lg flex items-center gap-2 ${(viewMode as string) === 'boardroom' ? 'bg-amber-500 text-slate-950' : 'text-slate-500 hover:bg-slate-50'}`}><Presentation size={14} />Veo Brief</button>
           </div>
@@ -298,6 +295,12 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
         <CFOExecutiveBrief data={data} />
       ) : viewMode === 'integration' ? (
         <IntegrationHub data={data} />
+      ) : viewMode === 'ledger' ? (
+        <MaterialityLedger data={data} />
+      ) : viewMode === 'certify' ? (
+        <AssuranceCertifier data={data} />
+      ) : viewMode === 'edge' ? (
+        <LegacyPlatformComparison />
       ) : (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -346,7 +349,7 @@ const Report: React.FC<ReportProps> = ({ data, pdfUrl, onReset }) => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <PeerIntelligence companyName={data.companyName} userScore={data.scoreValue} />
+            <PeerIntelligence companyName={data.companyName} userScore={data.scoreValue} scoreBreakdown={data.scoreBreakdown} />
             <div className="flex flex-col gap-6">
                <SolutionMarketplace data={data} />
                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">

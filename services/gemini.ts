@@ -3,7 +3,15 @@ import { GoogleGenAI, Type, GenerateContentResponse, Modality } from "@google/ge
 import { AuditResult } from "../types";
 
 // Factory for the AI client to ensure the most up-to-date API key from environment
-const getAi = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
+const getAi = () => {
+  const key = process.env.API_KEY || process.env.GEMINI_API_KEY;
+  if (!key) {
+    throw new Error(
+      "Your Gemini API Key is not connected. Please add your GEMINI_API_KEY in the Settings > Secrets panel in the upper right to run real-time AI audits."
+    );
+  }
+  return new GoogleGenAI({ apiKey: key });
+};
 
 /**
  * Institutional Base64 Helpers
@@ -187,7 +195,7 @@ export const analyzeDocument = async (
   onStreamUpdate: (text: string) => void
 ): Promise<AuditResult> => {
   const ai = getAi();
-  const model = 'gemini-3-flash-preview'; 
+  const model = 'gemini-3.5-flash'; 
   const prompt = `Act as an institutional CSRD auditor. Perform a 5-pillar analysis. Return ONLY valid JSON.`;
 
   const parts: any[] = [{ text: prompt }];
@@ -215,14 +223,64 @@ export const analyzeDocument = async (
     }
   }
 
-  const result = JSON.parse(tryRepairJson(fullText));
-  return { ...result, timestamp: new Date().toISOString() } as AuditResult;
+  const parsedResult = JSON.parse(tryRepairJson(fullText)) || {};
+  const cleanedResult: AuditResult = {
+    companyName: parsedResult.companyName || "Unknown Company",
+    readinessScore: parsedResult.readinessScore || "Partially Ready",
+    scoreValue: typeof parsedResult.scoreValue === 'number' ? parsedResult.scoreValue : 50,
+    sectorPeerAverage: typeof parsedResult.sectorPeerAverage === 'number' ? parsedResult.sectorPeerAverage : 60,
+    scoreBreakdown: {
+      doubleMateriality: parsedResult.scoreBreakdown?.doubleMateriality || 0,
+      valueChain: parsedResult.scoreBreakdown?.valueChain || 0,
+      dataGranularity: parsedResult.scoreBreakdown?.dataGranularity || 0,
+      strategyGovernance: parsedResult.scoreBreakdown?.strategyGovernance || 0,
+      frameworkAlignment: parsedResult.scoreBreakdown?.frameworkAlignment || 0,
+      ...parsedResult.scoreBreakdown
+    },
+    executiveSummary: parsedResult.executiveSummary || "No summary provided.",
+    timestamp: new Date().toISOString(),
+    doubleMaterialityMatrix: Array.isArray(parsedResult.doubleMaterialityMatrix) ? parsedResult.doubleMaterialityMatrix : [],
+    financialImpact: {
+      totalRevenue: parsedResult.financialImpact?.totalRevenue || 0,
+      revenueAtRiskPercentage: parsedResult.financialImpact?.revenueAtRiskPercentage || 0,
+      currency: parsedResult.financialImpact?.currency || "EUR",
+      estimatedRevenueAtRisk: parsedResult.financialImpact?.estimatedRevenueAtRisk || "€0",
+      compliancePenaltyExposure: parsedResult.financialImpact?.compliancePenaltyExposure || "None",
+      marketValuationRisk: parsedResult.financialImpact?.marketValuationRisk || "None",
+      costOfCapitalImpactBps: parsedResult.financialImpact?.costOfCapitalImpactBps || 0,
+      scenarios: Array.isArray(parsedResult.financialImpact?.scenarios) ? parsedResult.financialImpact.scenarios : [],
+      climateScenarios: Array.isArray(parsedResult.financialImpact?.climateScenarios) ? parsedResult.financialImpact.climateScenarios : [],
+      taxonomy: {
+        aligned: parsedResult.financialImpact?.taxonomy?.aligned || 0,
+        eligible: parsedResult.financialImpact?.taxonomy?.eligible || 0,
+        nonEligible: parsedResult.financialImpact?.taxonomy?.nonEligible || 0,
+        ...parsedResult.financialImpact?.taxonomy
+      },
+      scope1And2Tonnage: parsedResult.financialImpact?.scope1And2Tonnage || 0,
+      carbonIntensityMetric: parsedResult.financialImpact?.carbonIntensityMetric || "",
+      ...parsedResult.financialImpact
+    },
+    mandatoryDisclosures: Array.isArray(parsedResult.mandatoryDisclosures) ? parsedResult.mandatoryDisclosures : [],
+    roadmap: Array.isArray(parsedResult.roadmap) ? parsedResult.roadmap : [],
+    detailedFrameworks: Array.isArray(parsedResult.detailedFrameworks) ? parsedResult.detailedFrameworks : [
+      { name: 'ESRS', alignmentScore: 80, status: 'High', missingCriticals: [], evidenceCount: 0 },
+      { name: 'GRI', alignmentScore: 70, status: 'Medium', missingCriticals: [], evidenceCount: 0 },
+      { name: 'SASB', alignmentScore: 90, status: 'High', missingCriticals: [], evidenceCount: 0 },
+      { name: 'TCFD', alignmentScore: 50, status: 'Low', missingCriticals: [], evidenceCount: 0 },
+      { name: 'ISSB', alignmentScore: 60, status: 'Medium', missingCriticals: [], evidenceCount: 0 }
+    ],
+    peerBenchmarks: Array.isArray(parsedResult.peerBenchmarks) ? parsedResult.peerBenchmarks : [],
+    esrsTopics: Array.isArray(parsedResult.esrsTopics) ? parsedResult.esrsTopics : [],
+    subsidiaries: Array.isArray(parsedResult.subsidiaries) ? parsedResult.subsidiaries : []
+  };
+
+  return cleanedResult;
 };
 
 export const generateBriefingAudio = async (text: string): Promise<string> => {
   const ai = getAi();
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash-preview-tts",
+    model: "gemini-3.1-flash-tts-preview",
     contents: [{ parts: [{ text: `Generate a professional CFO briefing voice memo: ${text}` }] }],
     config: {
       responseModalities: [Modality.AUDIO],
@@ -239,7 +297,7 @@ export const generateBriefingAudio = async (text: string): Promise<string> => {
 export const connectLiveAssistant = (auditContext: AuditResult, callbacks: any) => {
   const ai = getAi();
   return ai.live.connect({
-    model: 'gemini-2.5-flash-native-audio-preview-12-2025',
+    model: 'gemini-3.1-flash-live-preview',
     callbacks,
     config: {
       responseModalities: [Modality.AUDIO],
@@ -255,7 +313,7 @@ export const connectLiveAssistant = (auditContext: AuditResult, callbacks: any) 
 export const askAuditAssistant = async (question: string, context: AuditResult): Promise<{ text: string, links: any[] }> => {
   const ai = getAi();
   const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
+    model: 'gemini-3.5-flash',
     contents: [{ role: 'user', parts: [{ text: `Context: ${context.companyName}. Question: ${question}` }] }],
     config: {
       tools: [{ googleSearch: {} }]
@@ -273,7 +331,7 @@ export const askAuditAssistant = async (question: string, context: AuditResult):
 export const generateESRSPolicy = async (code: string, description: string, context: AuditResult): Promise<string> => {
   const ai = getAi();
   const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
+    model: 'gemini-3.5-flash',
     contents: [{ role: 'user', parts: [{ text: `Draft board policy for ESRS ${code}: ${description}` }] }],
     config: { temperature: 0.1 }
   });
@@ -283,7 +341,7 @@ export const generateESRSPolicy = async (code: string, description: string, cont
 export const fetchPeerIntelligence = async (companyName: string): Promise<any> => {
   const ai = getAi();
   const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
+    model: 'gemini-3.5-flash',
     contents: [{ role: 'user', parts: [{ text: `Compare ${companyName} with 3 major industry peers on CSRD readiness. Include 'Net Zero mentions in 10-K' context if found. Return a JSON array: [{name, readinessScore, keyGap, reportUrl}]` }] }],
     config: { tools: [{ googleSearch: {} }] }
   });
