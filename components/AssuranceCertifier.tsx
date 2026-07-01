@@ -36,7 +36,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
       ? 'Dr. Aris Thorne'
       : 'Sarah Jenkins'
   );
-  const [auditorName, setAuditorName] = useState('Dr. Marcus Vance (Lead Assurance Partner)');
+  const [auditorName, setAuditorName] = useState('Planned External Assurer');
   const [csoTitle, setCsoTitle] = useState(
     data.companyName.toLowerCase().includes('indisante') 
       ? 'Chief Medical Officer (CMO)' 
@@ -44,7 +44,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
       ? 'Clinical Compliance Director'
       : 'VP of Sustainability'
   );
-  const [auditorFirm, setAuditorFirm] = useState('Audit Crystal Assurance S.A.');
+  const [auditorFirm, setAuditorFirm] = useState('Planned Assurance Firm');
   
   // Checklist states
   const [checks, setChecks] = useState({
@@ -87,7 +87,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[8px] font-black uppercase tracking-widest rounded">
-              CSRD Article 34 Compliant
+              CSRD Article 34 Readiness Simulation
             </span>
             <span className="text-[10px] text-slate-500 font-mono tracking-wider">
               BLOCK-ID: {certificateHash.slice(0, 10)}
@@ -95,7 +95,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
           </div>
           <h3 className="font-serif italic text-xl flex items-center gap-2">
             <ShieldCheck className="text-amber-500" size={22} />
-            Co-Signature Assurance Gateway
+            Co-Signature Readiness Gateway
           </h3>
         </div>
         <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -112,10 +112,10 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
               <div className="space-y-2">
                 <h4 className="text-sm font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
                   <PenTool size={16} className="text-indigo-600" />
-                  1. Define Co-Signing Authorities
+                  1. Define Co-Signing Roles
                 </h4>
                 <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                  Enter details for the corporate reporting officer and the accredited external auditor to stamp this report.
+                  Enter details for the corporate reporting officer and your planned external auditor to simulate readiness signing and prepare for the audit.
                 </p>
               </div>
 
@@ -146,7 +146,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
                 {/* Auditor Details */}
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                    Lead External Auditor (Certified Assurer)
+                    Target External Auditor (Planned Assurer)
                   </label>
                   <div className="grid grid-cols-2 gap-3">
                     <input 
@@ -254,7 +254,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
                 <div className="p-5 bg-white border border-slate-200 rounded-xl space-y-4">
                   <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
                     <span className="text-slate-500 font-medium">Assurance Target</span>
-                    <strong className="text-slate-900 font-black">CSRD Limited Assurance</strong>
+                    <strong className="text-slate-900 font-black">CSRD Limited Assurance (Simulated)</strong>
                   </div>
                   <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
                     <span className="text-slate-500 font-medium">Reporting Company</span>
@@ -265,7 +265,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
                     <strong className="text-amber-600 font-black">{data.scoreValue}/100</strong>
                   </div>
                   <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-500 font-medium">Validation Authority</span>
+                    <span className="text-slate-500 font-medium">Planned Assurer</span>
                     <strong className="text-indigo-600 font-black">{auditorFirm}</strong>
                   </div>
                 </div>
@@ -273,7 +273,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
                 <div className="text-xs text-slate-500 leading-relaxed font-medium bg-amber-50 border border-amber-100 p-4 rounded-xl flex items-start gap-2.5">
                   <AlertCircle size={16} className="text-amber-500 shrink-0 mt-0.5" />
                   <span>
-                    Co-signing locks all compliance scores, gap analyses, and policy drafts inside this session. It issues a cryptographic seal that acts as an audit-proof certificate.
+                    Co-signing locks all compliance scores, gap analyses, and policy drafts inside this session. It issues a cryptographic seal that simulates an audit-ready assurance certificate.
                   </span>
                 </div>
               </div>
@@ -296,7 +296,7 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
                   ) : (
                     <>
                       <Lock size={15} />
-                      Co-Sign & Issue Certificate of Assurance
+                      Co-Sign & Issue Certificate of Audit-Readiness
                     </>
                   )}
                 </button>
@@ -326,23 +326,23 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
                   <Award size={36} />
                 </div>
               </div>
-              <div className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.4em]">Official Institutional Attestation</div>
-              <h2 className="text-4xl font-serif text-white tracking-tight leading-none italic">Certificate of ESG Assurance</h2>
+              <div className="text-[10px] font-mono text-amber-400 uppercase tracking-[0.4em]">Internal Simulation & Readiness Attestation</div>
+              <h2 className="text-4xl font-serif text-white tracking-tight leading-none italic font-bold">Certificate of ESG Audit-Readiness</h2>
               <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
-                UNDER EUROPEAN DIRECTIVE (EU) 2022/2464 (CSRD) & ESRS STANDARDS
+                PRE-AUDIT ALIGNMENT WITH EUROPEAN DIRECTIVE (EU) 2022/2464 (CSRD)
               </p>
             </div>
 
             {/* Recipient details */}
             <div className="text-center max-w-2xl mx-auto space-y-6 relative z-10 border-y border-white/5 py-8">
               <p className="text-xs text-slate-400 font-light leading-relaxed">
-                This document certifies that <strong className="text-white font-black">{data.companyName}</strong> has been audited against the primary sustainability disclosure frameworks. The verification audit mapping confirmed a standardized ESG Readiness Score of:
+                This document certifies that <strong className="text-white font-black">{data.companyName}</strong> has completed an AI-assisted self-assessment of primary sustainability disclosure frameworks. The verification mapping confirmed a simulated ESG Audit-Readiness Score of:
               </p>
 
               <div className="flex items-center justify-center gap-4">
                 <div className="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl">
-                  <span className="text-[9px] text-slate-500 uppercase font-bold tracking-wider block">Assurance Level</span>
-                  <strong className="text-xs text-amber-400 font-black uppercase tracking-widest mt-0.5 block">LIMITED ASSURANCE</strong>
+                  <span className="text-[9px] text-slate-500 uppercase font-bold tracking-wider block">Assurance Target</span>
+                  <strong className="text-xs text-amber-400 font-black uppercase tracking-widest mt-0.5 block">LIMITED ASSURANCE READY</strong>
                 </div>
                 
                 <div className="w-20 h-20 bg-gradient-to-tr from-amber-400 to-amber-600 rounded-2xl flex flex-col items-center justify-center shadow-2xl rotate-3">
@@ -353,12 +353,17 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
 
                 <div className="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl">
                   <span className="text-[9px] text-slate-500 uppercase font-bold tracking-wider block">Evidence-Lock™</span>
-                  <strong className="text-xs text-emerald-400 font-black uppercase tracking-widest mt-0.5 block">SECURED</strong>
+                  <strong className="text-xs text-emerald-400 font-black uppercase tracking-widest mt-0.5 block">SIMULATED</strong>
                 </div>
               </div>
 
+              <div className="p-3 bg-white/5 border border-white/10 text-slate-400 text-[10px] font-medium leading-normal rounded-xl max-w-lg mx-auto">
+                <span className="text-amber-400 font-bold uppercase tracking-wider block mb-1">⚠️ Disclaimer</span>
+                This certificate represents an audit-readiness simulation and gap analysis check. It does not constitute a statutory audit opinion, assurance review, or certification by a registered external sustainability auditor.
+              </div>
+
               <p className="text-xs text-slate-400 font-light leading-relaxed">
-                Evidence logs have been cryptographically sealed and decentralized index anchors verified. All raw PII remained completely redacted within localized nodes under audit protocol rules.
+                Evidence logs have been cryptographically simulated and localized index anchors created. All raw data remained completely redacted within localized nodes under pre-audit self-assessment rules.
               </p>
             </div>
 
@@ -404,12 +409,12 @@ export const AssuranceCertifier: React.FC<AssuranceCertifierProps> = ({ data }) 
               {/* Auditor Sign */}
               <div className="flex flex-col items-center space-y-3 text-center border-t border-white/10 pt-4">
                 <div className="font-serif italic text-xl text-indigo-400 tracking-wider font-light h-10 flex items-center justify-center animate-pulse">
-                  {auditorName.split(' ')[0] + ' ' + auditorName.split(' ')[1]}
+                  {auditorName}
                 </div>
                 <div>
                   <div className="text-xs font-bold text-white">{auditorName}</div>
-                  <div className="text-[9px] text-slate-500 uppercase font-black tracking-widest mt-0.5">Accredited Lead Assurer</div>
-                  <div className="text-[8px] text-slate-500 font-mono mt-1">{auditorFirm} • (Signed Cryptographic Stamp)</div>
+                  <div className="text-[9px] text-slate-500 uppercase font-black tracking-widest mt-0.5">Planned External Assurer</div>
+                  <div className="text-[8px] text-slate-500 font-mono mt-1">{auditorFirm} • (Simulated Digital Stamp)</div>
                 </div>
               </div>
             </div>

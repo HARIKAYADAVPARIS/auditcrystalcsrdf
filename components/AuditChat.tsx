@@ -120,7 +120,7 @@ const AuditChat: React.FC<AuditChatProps> = ({ auditResult }) => {
         className="fixed bottom-6 right-6 bg-slate-900 text-amber-400 p-4 rounded-full shadow-2xl hover:bg-slate-800 transition-all z-50 flex items-center gap-2 border border-amber-500/30 print:hidden animate-in zoom-in duration-300"
       >
         <MessageSquare size={24} />
-        <span className="font-bold text-sm pr-1">Ask Auditor</span>
+        <span className="font-bold text-sm pr-1">Pre-Audit AI</span>
       </button>
     );
   }

@@ -49,7 +49,7 @@ const FrameworkIntelligence: React.FC<FrameworkIntelligenceProps> = ({ data, onS
          <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12">
            <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-black uppercase tracking-widest rounded-full">
-                <SearchCheck size={12} /> Auditor Workpaper Mode
+                <SearchCheck size={12} /> Pre-Audit Workpaper Mode
               </div>
               <h2 className="text-4xl font-black tracking-tighter">Global Framework <span className="text-amber-500">Alignment IQ</span></h2>
               <p className="text-slate-400 text-sm max-w-lg leading-relaxed">

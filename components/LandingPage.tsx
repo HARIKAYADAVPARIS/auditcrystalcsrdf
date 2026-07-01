@@ -120,7 +120,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                     </div>
                     <div className="space-y-2">
                         <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
-                            <span>Auditor-Ready Connection</span>
+                            <span>Audit-Ready Connection</span>
                             <span className="text-slate-200">Active</span>
                         </div>
                         <div className="h-0.5 bg-slate-800 rounded-full overflow-hidden">
@@ -131,7 +131,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 
                 <div className="pt-8 text-center space-y-4">
                     <div className="text-[9px] font-black uppercase tracking-[0.25em] text-slate-500">
-                        Direct connection to certified auditors / Raccordement auditeurs
+                        Direct alignment with external assurance frameworks
                     </div>
                     <div className="flex items-center justify-center gap-4">
                         <div className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/5 rounded text-[9px] font-bold tracking-wider text-slate-400">
@@ -245,7 +245,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                   {[
                     { label: "SaaS Database Sync", val: "Continuous API" },
                     { label: "Verification Proof Sealing", val: "Local Evidence Link" },
-                    { label: "External Auditor Readiness", val: "CSRD / ESRS Compliant" }
+                    { label: "External Audit-Readiness", val: "CSRD / ESRS Compliant" }
                   ].map((item, i) => (
                     <div key={i} className="flex justify-between items-center p-4 bg-white/5 border border-white/5 rounded-xl">
                       <span className="text-xs font-bold text-slate-400">{item.label}</span>
@@ -284,7 +284,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
         </div>
       </section>
 
-      {/* Auditor Portal - The methodology in action */}
+      {/* Pre-Audit Portal - The methodology in action */}
       <section className="py-24 bg-slate-950 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-24 items-center">
@@ -297,7 +297,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                       <div className="w-2 h-2 rounded-full bg-slate-600"></div>
                       <div className="w-2 h-2 rounded-full bg-slate-600"></div>
                     </div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Auditor Portal // Automated Verification</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Pre-Audit Portal // Automated Verification</span>
                   </div>
                   <div className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded text-[8px] font-black text-emerald-500 uppercase">Read-Only Secure Portal</div>
                 </div>
@@ -320,15 +320,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                   ))}
                 </div>
                 <div className="bg-slate-950/50 p-6 border-t border-white/5 text-center">
-                  <p className="text-[9px] font-mono text-slate-700 uppercase tracking-[0.2em]">Accredited Auditor Co-Signature Protocol Enabled</p>
+                  <p className="text-[9px] font-mono text-slate-700 uppercase tracking-[0.2em]">Simulated Co-Signature Assurance Enabled</p>
                 </div>
               </div>
             </div>
             <div className="order-1 lg:order-2 space-y-10">
               <div className="text-[10px] font-black text-gold-500 uppercase tracking-[0.4em]">Collaborative Workspace</div>
-              <h2 className="text-6xl font-serif text-white leading-none tracking-tight">Shared <span className="italic text-gold-400">Auditor Views.</span></h2>
+              <h2 className="text-6xl font-serif text-white leading-none tracking-tight">Shared <span className="italic text-gold-400">Audit-Ready Views.</span></h2>
               <p className="text-slate-400 text-lg font-light leading-relaxed">
-                Offer your third-party validators an elegant, read-only dashboard. Every metric is displayed alongside its original document proof, cutting review times significantly.
+                Offer your external validators an elegant, read-only dashboard. Every metric is displayed alongside its original document proof, cutting review times significantly.
               </p>
               <div className="grid grid-cols-2 gap-8 border-t border-white/5 pt-10">
                 <div className="space-y-2">
@@ -337,7 +337,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </div>
                 <div className="space-y-2">
                   <div className="text-xl font-serif text-white italic">Time Saving</div>
-                  <p className="text-xs text-slate-500 font-medium">Avoid manual searching. Auditors verify facts quickly.</p>
+                  <p className="text-xs text-slate-500 font-medium">Avoid manual searching. External verifiers assess facts quickly.</p>
                 </div>
               </div>
             </div>
@@ -432,24 +432,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
               </button>
             </div>
 
-            {/* Auditor Portal Tier Card */}
+            {/* Compliance Portal Tier Card */}
             <div className="bg-slate-900 border border-gold-500/30 p-10 rounded-xl flex flex-col justify-between shadow-[0_20px_50px_rgba(212,163,89,0.1)] transform md:scale-105 relative z-20 hover:border-gold-500/50 transition-all duration-300">
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gold-500 text-slate-950 text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
                 Highly Recommended // Réseau
               </div>
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-[10px] font-black text-gold-400 uppercase tracking-widest mb-1">Auditing Firms</h4>
-                  <h3 className="text-xl font-serif text-white font-bold">Auditor Seat License</h3>
+                  <h4 className="text-[10px] font-black text-gold-400 uppercase tracking-widest mb-1">Compliance Teams</h4>
+                  <h3 className="text-xl font-serif text-white font-bold">Assurance Seat License</h3>
                   <p className="text-xs text-slate-300 mt-2 font-light">
-                    Seat-based licenses enabling accredited auditors (Big 4, ESG assurance firms) to co-sign disclosures in minutes.
+                    Seat-based licenses enabling internal compliance teams and external verifiers to collaborate and assess disclosures in minutes.
                   </p>
                 </div>
 
                 <div className="border-t border-b border-white/5 py-4">
-                  <div className="text-sm font-serif text-gold-400 font-bold mb-1">Cuts Audit Field-Work Time by 90%</div>
+                  <div className="text-sm font-serif text-gold-400 font-bold mb-1">Cuts Assurance Prep Time by 90%</div>
                   <p className="text-xs text-slate-400 font-light">
-                    Firms gain specialized interactive dashboards to inspect cryptographic proof anchors and SHA-256 sentence-level links instantly.
+                    Teams gain specialized interactive dashboards to inspect cryptographic proof anchors and SHA-256 sentence-level links instantly.
                   </p>
                 </div>
 
@@ -530,9 +530,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
               <div className="inline-flex items-center gap-1.5 text-gold-500 text-[10px] font-black uppercase tracking-wider">
                 <TrendingUp size={12} /> Immediate ROI Realization
               </div>
-              <h4 className="text-lg font-serif text-white font-bold">Squeeze Out Auditor Billable Hours</h4>
+              <h4 className="text-lg font-serif text-white font-bold">Reduce External Audit Prep Costs</h4>
               <p className="text-xs text-slate-400 leading-relaxed font-light">
-                Standard external ESG audits cost enterprises between <strong>€50,000 and €200,000</strong>. By automating evidence structuring and pre-assurance checks, Audit Crystal pays for itself in the very first month by drastically saving expensive auditor field hours.
+                Standard external ESG audits cost enterprises between <strong>€50,000 and €200,000</strong>. By automating evidence structuring and pre-assurance readiness checks, Audit Crystal pays for itself in the very first month by drastically saving expensive external review preparation hours.
               </p>
             </div>
           </div>

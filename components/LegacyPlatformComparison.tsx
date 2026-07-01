@@ -51,12 +51,12 @@ const FEATURES: ComparisonFeature[] = [
   {
     id: 'audit_lifecycle',
     category: 'ISSA 5000 / CSRD',
-    title: 'Auditor Co-Signature Gateways',
+    title: 'Audit-Readiness Gateways',
     description: 'Transitioning raw environmental estimates into officially certified corporate disclosures.',
     recordRole: 'Internal Draft & Planning',
     recordSub: 'Provides tracking charts, decarbonization simulation scenarios, and exportable data spreadsheets for team review.',
-    crystalRole: 'Assurance Attestation Portal',
-    crystalSub: 'An interactive external workspace matching the CSO with accredited auditors to seal and issue registered Certificates of Assurance.'
+    crystalRole: 'Readiness Attestation Portal',
+    crystalSub: 'An interactive simulation workspace matching the CSO with planned external auditors to co-sign and issue simulated Certificates of Audit-Readiness.'
   },
   {
     id: 'financial_mapping',

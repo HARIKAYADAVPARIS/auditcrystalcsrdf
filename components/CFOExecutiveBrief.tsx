@@ -127,7 +127,7 @@ const CFOExecutiveBrief: React.FC<CFOExecutiveBriefProps> = ({ data }) => {
                         isWorkbenchOpen ? 'bg-amber-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:bg-white/10'
                       }`}
                     >
-                      <Sliders size={12} /> {isWorkbenchOpen ? 'Close Workbench' : 'Auditor Override'}
+                      <Sliders size={12} /> {isWorkbenchOpen ? 'Close Workbench' : 'Simulated Override'}
                     </button>
                  </div>
                </div>
@@ -364,7 +364,7 @@ const CFOExecutiveBrief: React.FC<CFOExecutiveBriefProps> = ({ data }) => {
                     <ShieldAlert size={20} className="text-white" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-indigo-400">Auditor Insight</h4>
+                    <h4 className="text-sm font-bold text-indigo-400">Audit-Readiness Insight</h4>
                     <p className="text-xs text-slate-400 leading-relaxed mt-1">
                       Current remediation path reduces {climateImpact.temp} scenario volatility by {activeRemediations.length * 5}bps.
                     </p>

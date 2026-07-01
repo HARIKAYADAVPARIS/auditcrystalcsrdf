@@ -5,7 +5,7 @@ import FileUpload from './components/FileUpload';
 import Report from './components/Report';
 import LandingPage from './components/LandingPage';
 import AnalysisTerminal from './components/AnalysisTerminal';
-import { analyzeDocument } from './services/gemini';
+import { analyzeDocument, isSandboxModeActive, isApiKeyConnected } from './services/gemini';
 import { AnalysisState, ReadinessStatus, AuditResult } from './types';
 
 const SAMPLE_RESULT: AuditResult = {
@@ -75,6 +75,15 @@ const SAMPLE_RESULT: AuditResult = {
 
 const App: React.FC = () => {
   const [view, setView] = useState<'landing' | 'app'>('landing');
+  const [sandboxMode, setSandboxMode] = useState<boolean>(() => {
+    return isSandboxModeActive();
+  });
+
+  const toggleSandboxMode = () => {
+    const nextVal = !sandboxMode;
+    setSandboxMode(nextVal);
+    localStorage.setItem('sandboxMode', String(nextVal));
+  };
   
   const [analysisState, setAnalysisState] = useState<AnalysisState>({
     isLoading: false,
@@ -158,12 +167,12 @@ const App: React.FC = () => {
             <div className="p-1.5 bg-gold-500 rounded-lg shadow-xl"><Gem className="text-white" size={20} /></div>
             <span className="text-xl font-serif italic text-white tracking-tight">Audit Crystal</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button onClick={handleReset} className="text-[9px] font-black px-4 py-2 bg-white/5 text-slate-400 hover:text-white border border-white/10 rounded-full uppercase tracking-widest transition-all">
               New Report
             </button>
-            <span className="hidden md:inline-block text-[9px] font-black px-3 py-1 bg-white/5 text-gold-400 border border-white/10 rounded-full uppercase tracking-widest">
-              Institutional Mode v4.1 • auditcrystal.com
+            <span className="hidden lg:inline-block text-[9px] font-black px-3 py-1 bg-white/5 text-gold-400 border border-white/10 rounded-full uppercase tracking-widest">
+              Institutional Mode v4.1
             </span>
           </div>
         </div>
